@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Convert all mkv videos in the current directory to h264 encoded mp4 files
+# Convert all .mkv h265 videos in the specified directory to h264 encoded .mp4 files
+
+RED="\033[0;31m"
+RESET="\033[0m"
 
 out_dir="./"  # The directory to output the converted files to
 help=0  # If true then the help message is displayed and the script exits
@@ -38,6 +41,12 @@ for file in *.mkv; do
 
 	if [[ "$video_format" == "h264" ]]; then
 		echo "[-] Video is already h264 encoded, skipping..."
+		continue
+	fi
+
+	if [[ "$video_format" != "h265" ]]; then
+		# NOTE: The below code _might_ work for av1 encoded videos, but I haven't tested it
+		echo -e "${RED}[-] File format is $format, cannot auto convert...${RESET}"
 		continue
 	fi
 
