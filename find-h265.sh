@@ -27,7 +27,9 @@ if [[ $help == 1 || $location == "" ]]; then
     exit 0
 fi
 
-for file in $location/**/*.mkv; do
+shopt -s globstar
+
+for file in "$location"/**/*.mkv; do
     format=$(ffprobe -loglevel error -select_streams v:0 -show_entries stream=codec_name -of default=nw=1:nk=1 "$file");
 
     if [[ $format != "h264" ]]; then
@@ -39,3 +41,5 @@ for file in $location/**/*.mkv; do
         fi
     fi
 done
+
+echo "[+] Completed"
