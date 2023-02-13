@@ -37,7 +37,7 @@ for file in "$location"/**/*.mkv; do
 
         if [[ $convert == 1 ]]; then
             script_dir=$(dirname "$0")
-            "$script_dir/convert.sh" --out "$(dirname "$file")" --remove
+            "$script_dir/convert.sh" --single "$file" --remove
         fi
     fi
 done
